@@ -22,5 +22,19 @@
 				<div class="two-thirds column" id="root"></div>
 			</div>
 		</div>
+
+		<script>
+			// Mobile navigation: toggle class on body
+			document.querySelector('.one-third.column')?.addEventListener('click', (e) => {
+				// Ignore if clicking on button
+				if (e.target.closest('button')) return;
+				document.body.classList.add('show-chat');
+			});
+
+			// Optional: back button functionality (to be added in chat)
+			window.closeChat = () => {
+				document.body.classList.remove('show-chat');
+			};
+		</script>
 	</body>
 </html>
