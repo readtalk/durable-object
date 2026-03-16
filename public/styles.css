@@ -100,18 +100,6 @@ html {
 
 /* =========================================== */
 
-@media (max-width: 549px) {
-  /* Potong: chatlog hidden, sidebar full */
-  .row .two-thirds.column {
-    display: none;
-  }
-  
-  /* Munculin chatlog */
-  body.show-chat .row .two-thirds.column {
-    display: block;
-  }
-  
-  body.show-chat .row .one-third.column {
-    display: none;
-  }
+body {
+  background: red !important;
 }
