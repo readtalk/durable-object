@@ -1,8 +1,8 @@
 {
 	"name": "do",
-	"description": "Chat with other users in real-time using Durable Objects and PartyKit.",
+	"description": "Real-time Chat using Durable Objects and PartyKit.",
 	"cloudflare": {
-		"label": "Durable Chat App",
+		"label": "Durable Object",
 		"products": [
 			"Workers",
 			"Durable Objects"
