@@ -97,3 +97,20 @@ html {
 	fill: initial !important;
 	stroke: initial !important;
 }
+
+/* smartphone desktop responsif */
+
+@media (max-width: 549px) {
+  .two-thirds.column {
+    display: none;
+  }
+  
+  /* chatlog class show-chat */
+  body.show-chat .two-thirds.column {
+    display: block;
+  }
+  
+  body.show-chat .one-third.column {
+    display: none;
+  }
+}
