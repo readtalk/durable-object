@@ -29,16 +29,7 @@
 			</div>
 		</div>
 
-		<script>
-			  
-  document.querySelectorAll('.chat-item').forEach(item => {
-    item.onclick = () => document.body.classList.add('show-chat');
-  }); 
-  
-  function showSidebar() {
-    document.body.classList.remove('show-chat');
-  }
-			
+		<script>			    			
 			const root = document.documentElement
 			const savedTheme = localStorage.getItem("theme") || "light"
 			root.dataset.theme = savedTheme
