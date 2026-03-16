@@ -1,51 +1,47 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<meta charset="utf-8" />
 		<title>READTalk</title>
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+
+		<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
+		<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+		<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<link rel="stylesheet" href="css/normalize.css" />
 		<link rel="stylesheet" href="css/skeleton.css" />
 		<link rel="stylesheet" href="styles.css" />
 
+		<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<link rel="icon" type="image/ico" href="favicon.ico" />
 		<script src="/dist/index.js" type="module"></script>
 	</head>
 	<body>
-		<div class="container" style="width: 95%; height: 100%; position: relative; overflow: hidden;">
-			<div class="row" style="height: 100%; position: relative;">
-				<!-- Sidebar -->
-				<div class="one-third column" style="margin-top: 25%; position: absolute; width: 100%; height: 100%; z-index: 2; background: inherit; transition: transform 0.3s ease;">
+		<!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<div class="container" style="width: 95%; height: 100%">
+			<div class="row" style="height: 100%">
+				<div class="one-third column" style="margin-top: 25%">
 					<h4><b>READT</b>alk</h4>
-					<p>:</p>
+					<p>
+						:
+					</p>
 				</div>
-				
-				<!-- Chatlog -->
-				<div class="two-thirds column" id="root" style="position: absolute; width: 100%; height: 100%; z-index: 1; background: inherit; transition: transform 0.3s ease;"></div>
+				<div class="two-thirds column" id="root"></div>
 			</div>
 		</div>
 
-		<script>
-			
-			document.addEventListener('click', function(e) {
-				const sidebar = document.querySelector('.one-third.column');
-				const chatlog = document.querySelector('.two-thirds.column');
-				
-				
-				if (sidebar.contains(e.target) && !e.target.closest('button')) {
-					sidebar.style.transform = 'translateX(-100%)';
-					chatlog.style.transform = 'translateX(0)';
-					chatlog.style.zIndex = '3';
-				}
-				
-				
-				if (chatlog.contains(e.target) && e.target.closest('.back-button')) {
-					sidebar.style.transform = 'translateX(0)';
-					chatlog.style.transform = 'translateX(100%)';
-					chatlog.style.zIndex = '1';
-				}
-			});
-		</script>
+		<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	</body>
 </html>
