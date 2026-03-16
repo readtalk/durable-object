@@ -97,3 +97,21 @@ html {
 	fill: initial !important;
 	stroke: initial !important;
 }
+
+/* =========================================== */
+
+@media (max-width: 549px) {
+  /* Potong: chatlog hidden, sidebar full */
+  .row .two-thirds.column {
+    display: none;
+  }
+  
+  /* Munculin chatlog */
+  body.show-chat .row .two-thirds.column {
+    display: block;
+  }
+  
+  body.show-chat .row .one-third.column {
+    display: none;
+  }
+}
