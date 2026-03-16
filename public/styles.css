@@ -1,91 +1,42 @@
-/* ===== STYLES.CSS - PISAU TAJAM VERSI UPDATE ===== */
+/* ===== STYLES.CSS - PISAU SEDERHANA ===== */
 
-/* 1. PISAU POTONG: MOBILE NAVIGATION (LIKE WA)
-   –––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* 1. MOBILE NAVIGATION */
 @media (max-width: 549px) {
-  /* Sembunyikan chatlog di mobile, hanya sidebar yang terlihat */
-  .container > .row > .two-thirds.column {
-    display: none !important;
+  /* Sembunyikan chatlog, tampilkan sidebar */
+  .row .two-thirds.column {
+    display: none;
   }
   
-  .container > .row > .one-third.column {
-    display: block !important;
-    width: 100% !important;
-  }
-  
-  /* Saat chat dipilih, tampilkan chatlog, sembunyikan sidebar */
-  body.show-chat .container > .row > .two-thirds.column {
-    display: flex !important;  /* Ganti dari block ke flex */
-    flex-direction: column;
-    width: 100% !important;
-    height: 100% !important;
-  }
-  
-  body.show-chat .container > .row > .one-third.column {
-    display: none !important;
-  }
-  
-  /* Pastikan #root mengisi penuh dan flex dengan benar */
-  body.show-chat #root {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between; /* Ubah dari flex-end */
-  }
-  
-  /* Container chat messages harus scrollable */
-  body.show-chat .chat {
-    flex: 1;
-    overflow-y: auto;
-    padding-top: 40px;
-    padding-bottom: 10px;
-  }
-  
-  /* Input tetap di bawah */
-  body.show-chat .send-message {
-    flex-shrink: 0;
-    margin-top: auto;
-    width: 100%;
-  }
-  
-  /* Form input wrapper */
-  body.show-chat .send-message form {
-    display: flex;
-    gap: 5px;
-    padding: 10px;
-  }
-  
-  /* Input field */
-  body.show-chat .my-input-text {
-    flex: 1;
-    height: 40px;
-    padding: 8px 12px;
-  }
-  
-  /* Send button */
-  body.show-chat .send-message button {
-    height: 40px;
-    width: 40px;
-    padding: 0;
-  }
-}
-
-/* Reset untuk desktop */
-@media (min-width: 550px) {
-  .container > .row > .two-thirds.column,
-  .container > .row > .one-third.column {
+  /* Saat chat dipilih */
+  body.show-chat .row .two-thirds.column {
     display: block;
   }
   
-  /* Desktop layout normal */
-  #root {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+  body.show-chat .row .one-third.column {
+    display: none;
   }
-  
-  .chat {
-    flex: 1;
-    overflow-y: auto;
+}
+
+/* 2. DESKTOP (biarkan skeleton kerja) */
+@media (min-width: 550px) {
+  .row .two-thirds.column,
+  .row .one-third.column {
+    display: block;
   }
+}
+
+/* 3. FIX TEXTAREA POSITION */
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.send-message {
+  flex-shrink: 0;
 }
