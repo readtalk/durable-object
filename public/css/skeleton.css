@@ -1,12 +1,12 @@
-/*! Skeleton V2.0.4 - Modified for READTalk */
+/*! Skeleton V2.0.4 - Modified READTalk */
 
-/* Grid - Full Width Container
+/* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {
   position: relative;
   width: 100%;
-  max-width: 100%;  /* Diubah dari 960px jadi 100% */
-  margin: 0;        /* Diubah dari auto jadi 0 */
+  max-width: 100%;
+  margin: 0;
   padding: 0 20px;
   box-sizing: border-box;
 }
@@ -18,28 +18,27 @@
   box-sizing: border-box;
 }
 
-/* Tablet & Desktop Grid */
+/* Tablet & Desktop */
 @media (min-width: 550px) {
   .container {
-    width: 100%;    /* Diubah dari 80% jadi 100% */
+    width: 100%;
   }
   
   .column,
   .columns {
-    margin-left: 0;  /* Diubah dari 4% jadi 0 */
+    margin-left: 0;
   }
   
   .one-third.column {
-    width: 30%;      /* Dibulatkan dari 30.666...% */
+    width: 30%;
   }
   
   .two-thirds.column {
-    width: 70%;      /* Dibulatkan dari 65.333...% */
+    width: 70%;
   }
 }
 
-/* Base Styles
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Base */
 html {
   font-size: 62.5%;
 }
@@ -47,67 +46,34 @@ html {
 body {
   font-size: 1.5em;
   line-height: 1.6;
-  font-weight: 400;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; /* Font modern */
-  color: inherit;  /* Warisi dari theme */
+  font-family: -apple-system, Inter, sans-serif;
+  color: inherit;
 }
 
-/* Typography
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-h4 {
-  font-size: 2.4rem;
-  margin-bottom: 1rem;
-}
-
-/* Links
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Links */
 a {
-  color: #00a884;  /* Warna READTalk */
+  color: #00a884;
 }
 a:hover {
   color: #008f6b;
 }
 
-/* Buttons - Minimal
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Buttons */
 button {
   background: transparent;
   border: none;
   cursor: pointer;
 }
 
-/* Forms - Chat Input
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Forms */
 input[type="text"] {
   height: 32px;
   padding: 0 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-sizing: border-box;
 }
 
-/* Utilities
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.u-full-width {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.u-full-height {
-  height: 100%;  /* Tambahan */
-}
-
-/* Clearing
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.container:after,
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Mobile Navigation
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Mobile Navigation */
 @media (max-width: 549px) {
   .one-third.column {
     width: 100% !important;
@@ -126,4 +92,20 @@ input[type="text"] {
   body.show-chat .one-third.column {
     display: none;
   }
+}
+
+/* Utilities */
+.u-full-width {
+  width: 100%;
+}
+.u-full-height {
+  height: 100%;
+}
+
+/* Clearing */
+.container:after,
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
