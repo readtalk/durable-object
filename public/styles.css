@@ -1,3 +1,4 @@
+/* ===== LAYOUT DASAR ===== */
 body,
 html {
 	height: 100%;
@@ -7,10 +8,21 @@ html {
 	flex-direction: column;
 }
 
-.chat {
-	padding-top: 40px;
+.container {
+	width: 95%;
+	height: 100%;
 }
 
+.row {
+	height: 100%;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+	margin-top: 25%;
+}
+
+/* ===== CHAT AREA ===== */
 #root {
 	flex: 1;
 	display: flex;
@@ -18,7 +30,10 @@ html {
 	justify-content: flex-end;
 	overflow-y: auto;
 	height: 100%;
-	/* padding: 10px; */
+}
+
+.chat {
+	padding-top: 40px;
 }
 
 .message {
@@ -35,11 +50,9 @@ html {
 	width: 22px;
 	height: 20px;
 	left: -60px;
-	/* display: "block", */
 	display: none;
 	padding: 0;
 	line-height: 18px;
-	border: "none";
 }
 
 .send-message {
@@ -48,4 +61,36 @@ html {
 
 .my-input-text::placeholder {
 	color: #ccc;
+}
+
+/* ===== MOBILE (di bawah 550px) ===== */
+@media (max-width: 549px) {
+	/* Sidebar full width, chatlog hidden */
+	.sidebar {
+		width: 100% !important;
+		margin-top: 0;
+		display: block;
+	}
+	
+	.two-thirds.column {
+		width: 100% !important;
+		display: none;
+	}
+	
+	/* Saat chat dipilih */
+	body.show-chat .two-thirds.column {
+		display: block;
+	}
+	
+	body.show-chat .sidebar {
+		display: none;
+	}
+}
+
+/* ===== DESKTOP (di atas 550px) ===== */
+@media (min-width: 550px) {
+	/* Biarkan skeleton yang ngatur, kita hanya reset */
+	.sidebar {
+		margin-top: 25%;
+	}
 }
