@@ -49,28 +49,3 @@ html {
 .my-input-text::placeholder {
 	color: #ccc;
 }
-
-/* ========================== */
-
-/* styles.css - tambahin di bagian bawah */
-
-@media (max-width: 549px) {
-  .two-thirds.column {
-    display: none;
-  }
-    
-  body.show-chat .two-thirds.column {
-    display: block;
-  }
-  
-  body.show-chat .one-third.column {
-    display: none;
-  }
-}
-
-@media (min-width: 550px) {
-  .two-thirds.column,
-  .one-third.column {
-    display: block;
-  }
-}
