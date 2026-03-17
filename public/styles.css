@@ -47,7 +47,35 @@
   background: #ffffff;
 }
 
-/* Bubble pesan - visual doang */
+/* Bubble umum */
+.row.message .ten.columns {
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 11px 15px;
+  font-size: 15.5px;
+  line-height: 1.45;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.row.message .ten.columns:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Received (kiri) */
+.row.message:not(.sent) .ten.columns {
+  background: #f1f5f9;
+  color: #0f1419;
+  border-bottom-left-radius: 5px;
+}
+
+/* Sent (kanan + merah) */
+.row.message.sent .ten.columns {
+  background: #e63946;
+  color: white;
+  border-bottom-right-radius: 5px;
+}
+
 .row.message .ten.columns {
   border-radius: 18px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
