@@ -96,7 +96,50 @@
   color: white;
 }
 
-/* Input & button visual */
+input.ten.columns.my-input-text {
+  background: #f9fafb;
+  border: 1px solid #ced4da;
+  border-radius: 9999px;
+  padding: 0 20px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+input.ten.columns.my-input-text:focus {
+  border-color: #e63946;
+  box-shadow: 0 0 0 4px rgba(230,57,70,0.12);
+  background: #ffffff;
+}
+
+input.ten.columns.my-input-text::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+button.send-message.two.columns {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #e63946;
+  color: white;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(230,57,70,0.2);
+}
+
+button.send-message.two.columns:hover {
+  background: #d32f2f;
+  box-shadow: 0 4px 12px rgba(230,57,70,0.3);
+}
+
+button.send-message.two.columns:active {
+  transform: scale(0.94);
+  box-shadow: 0 1px 4px rgba(230,57,70,0.2);
+}
+
 input.ten.columns.my-input-text {
   background: #f8f9fa;
   border: 1px solid #ced4da;
