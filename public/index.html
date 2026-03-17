@@ -14,7 +14,7 @@
         <script src="/dist/index.js" type="module"></script>
 
         <style>
-            /* CSS yang kamu minta ditambahkan inline */
+            /* ==================== CSS YANG KAMU MINTA (INLINE) ==================== */
             html {
                 height: 100%;
                 margin: 0;
@@ -34,7 +34,7 @@
                 justify-content: flex-end;
                 overflow-y: auto;
                 height: 100%;
-                /* padding: 10px; */ /* dikomen seperti aslinya */
+                /* padding: 10px; */
             }
 
             .message {
@@ -65,20 +65,24 @@
                 color: #ccc;
             }
 
-            /* Tambahan kecil biar tidak bentrok terlalu parah dengan skeleton */
+            /* ==================== TAMBAHAN KECIL AGAR TIDAK BENTROK DENGAN SKELETON ==================== */
             .container {
-                width: 100%;
-                max-width: 100%;
-                height: 100%;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100% !important;
             }
 
             .row {
-                margin: 0;
+                margin: 0 !important;
+                height: 100%;
             }
 
-            /* Biar input form tidak terpengaruh grid skeleton */
+            .one-third.column {
+                margin-top: 0 !important; /* hilangkan margin-top 25% bawaan */
+            }
+
             form.row {
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 gap: 12px;
                 width: 100%;
