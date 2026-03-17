@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
   <title>READTalk</title>
   
   <link rel="icon" type="image/ico" href="favicon.ico" />
@@ -10,232 +10,226 @@
   
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #0f1419;
-      --text-secondary: #536471;
-      --bubble-sent: #e63946;
+      --white: #ffffff;
+      --text-primary: #111111;
+      --text-secondary: #4b5563;
+      --bubble-received-bg: #f3f4f6;
+      --bubble-received-text: #111111;
+      --bubble-sent-bg: #ef4444;
       --bubble-sent-text: #ffffff;
-      --bubble-received: #f1f5f9;
-      --bubble-received-text: #0f1419;
-      --input-bg: #f8fafc;
-      --border: #e2e8f0;
-      --accent: #e63946;
-      --accent-hover: #d00000;
-      --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --input-bg: #f9fafb;
+      --border-light: #e5e7eb;
+      --accent-red: #ef4444;
+      --accent-red-dark: #dc2626;
+      --font-system: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
     }
 
-    * {
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
-    html, body, #root {
+    html, body {
       height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-base);
-      overflow: hidden;
+      width: 100%;
+      background: var(--white);
+      color: var(--text-primary);
+      font-family: var(--font-system);
+      font-size: 16px;
+      line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
     }
 
-    .chat.container {
+    #root, .chat.container {
       height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      background: var(--bg);
-      max-width: 100%;
       width: 100%;
-      margin: 0 auto;
-    }
-
-    /* Header sederhana (nama room atau judul, bisa dihapus kalau gak perlu) */
-    .chat-header {
-      padding: 12px 16px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    /* Area pesan - scrollable */
-    .messages-area {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 12px 80px; /* ruang buat input fixed */
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      background: var(--white);
+    }
+
+    /* Area chat messages */
+    .chat.container > *:not(form) {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: 1.25rem 1rem 6rem; /* bottom space untuk input */
+      display: flex;
+      flex-direction: column;
+      gap: 1.125rem; /* jarak antar pesan */
       scroll-behavior: smooth;
     }
 
     .row.message {
       display: flex;
       flex-direction: column;
-      margin: 0;
-      padding: 0;
-      background: transparent;
+      width: 100%;
     }
 
     .row.message .user {
-      font-size: 0.78rem;
+      font-size: 0.8125rem; /* ~13px */
+      font-weight: 600;
       color: var(--text-secondary);
-      font-weight: 500;
-      margin-bottom: 4px;
-      padding-left: 12px;
+      margin-bottom: 0.375rem;
+      padding-left: 0.75rem;
     }
 
     .row.message .ten.columns {
-      max-width: 75%;
-      padding: 10px 14px;
-      border-radius: 18px;
-      font-size: clamp(14px, 3.5vw, 16px); /* responsif: kecil di mobile, agak besar di desktop */
-      line-height: 1.38;
+      max-width: 82%;
+      width: fit-content;
+      padding: 0.75rem 1rem;
+      border-radius: 1.25rem;
+      font-size: 1rem;
+      line-height: 1.4;
       word-break: break-word;
+      hyphens: auto;
       position: relative;
     }
 
-    /* Received: kiri, abu muda */
-    .row.message .user ~ .ten.columns {
+    /* Semua bubble sementara rata kiri dulu (karena nama random semua) */
+    .row.message .ten.columns {
       align-self: flex-start;
-      background: var(--bubble-received);
+      background: var(--bubble-received-bg);
       color: var(--bubble-received-text);
-      border-bottom-left-radius: 4px;
+      border-top-left-radius: 0.375rem;
+      border-bottom-left-radius: 1.25rem;
+      border-top-right-radius: 1.25rem;
+      border-bottom-right-radius: 1.25rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
-    /* Sent: kanan, merah */
-    .row.message:has(> .user) .ten.columns {  /* fallback kalau nama selalu ada */
-      align-self: flex-end;
-      background: var(--bubble-sent);
-      color: var(--bubble-sent-text);
-      border-bottom-right-radius: 4px;
-    }
+    /* Sent visual hint: kalau nanti bisa bedain, pakai ini */
+    /* .row.message.sent .ten.columns { */
+    /*   align-self: flex-end; */
+    /*   background: var(--bubble-sent-bg); */
+    /*   color: var(--bubble-sent-text); */
+    /*   border-bottom-right-radius: 0.375rem; */
+    /*   border-bottom-left-radius: 1.25rem; */
+    /* } */
 
-    /* Timestamp kecil di kanan bawah bubble */
+    /* Timestamp kecil */
     .row.message .ten.columns::after {
-      content: attr(data-time) / "";  /* kalau nanti tambah data-time di JSX, atau pakai CSS content statis */
+      content: "baru saja";
       display: block;
-      font-size: 0.68rem;
+      font-size: 0.6875rem;
       color: inherit;
       opacity: 0.65;
-      margin-top: 4px;
+      margin-top: 0.375rem;
       text-align: right;
     }
 
-    /* Input form fixed bottom */
+    /* Input area fixed bottom */
     .chat.container > form.row {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 12px 16px;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
+      z-index: 10;
       display: flex;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.04);
-      z-index: 100;
-      flex-shrink: 0;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--white);
+      border-top: 1px solid var(--border-light);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.04);
     }
 
     .chat.container form input.ten.columns.my-input-text {
-      flex: 1;
-      height: 48px;
-      padding: 0 18px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
+      flex: 1 1 auto;
+      height: 3.125rem; /* 50px */
+      padding: 0 1.25rem;
+      font-size: 1rem;
+      line-height: 1.5;
       background: var(--input-bg);
-      font-size: clamp(15px, 3.8vw, 16px);
-      color: var(--text);
+      border: 1px solid var(--border-light);
+      border-radius: 9999px;
       outline: none;
-      transition: all 0.2s ease;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
     }
 
     .chat.container form input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
+      border-color: var(--accent-red);
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.12);
     }
 
     .chat.container form input::placeholder {
-      color: #94a3b8;
-      font-weight: 400;
+      color: #9ca3af;
+      opacity: 1;
     }
 
     .chat.container form button.send-message.two.columns {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
+      width: 3.125rem;
+      height: 3.125rem;
       border: none;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--accent-red);
       color: white;
       font-size: 1.25rem;
-      font-weight: bold;
-      cursor: pointer;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s ease;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.12s ease;
+    }
+
+    .chat.container form button:active {
+      transform: scale(0.96);
     }
 
     .chat.container form button:hover {
-      background: var(--accent-hover);
+      background: var(--accent-red-dark);
     }
 
-    /* Hilangkan sisa grid Milligram yang mengganggu */
-    .row, .columns, .ten.columns, .two.columns {
+    /* Hilangkan pengaruh grid lama sepenuhnya */
+    .row, [class*="columns"] {
       margin: 0 !important;
       padding: 0 !important;
       width: auto !important;
+      max-width: none !important;
       float: none !important;
     }
 
-    /* Scrollbar custom (opsional, clean) */
-    .messages-area::-webkit-scrollbar {
+    /* Scrollbar modern & tipis */
+    .chat.container > *:not(form)::-webkit-scrollbar {
       width: 6px;
     }
 
-    .messages-area::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
+    .chat.container > *:not(form)::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chat.container > *:not(form)::-webkit-scrollbar-thumb {
+      background: #d1d5db;
       border-radius: 3px;
     }
 
-    .messages-area::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
+    .chat.container > *:not(form)::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
     }
 
-    /* Responsif tambahan untuk layar besar */
-    @media (min-width: 768px) {
+    /* Desktop / tablet adjustment */
+    @media (min-width: 640px) {
       .chat.container {
-        max-width: 900px;
+        max-width: 960px;
         margin: 0 auto;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        overflow: hidden;
+        border-left: 1px solid var(--border-light);
+        border-right: 1px solid var(--border-light);
+        box-shadow: 0 0 20px rgba(0,0,0,0.03);
       }
-      .messages-area {
-        padding: 24px 32px 100px;
+      .chat.container > *:not(form) {
+        padding: 1.5rem 2.5rem 7rem;
       }
-      .chat.container > form.row {
-        padding: 16px 32px;
+      form.row {
+        padding: 1rem 2.5rem;
       }
     }
 
-    @media (max-width: 480px) {
-      .chat.container > form.row {
-        padding: 10px 12px;
-      }
-      form input {
-        height: 44px;
-      }
-      form button {
-        width: 44px;
-        height: 44px;
+    @media (max-width: 360px) {
+      .row.message .ten.columns {
+        max-width: 88%;
       }
     }
   </style>
