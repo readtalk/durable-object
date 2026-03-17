@@ -10,16 +10,35 @@
 		  
 		<link rel="icon" type="image/ico" href="favicon.ico" />
 		<script src="/dist/index.js" type="module"></script>
+		
+		<!-- TAMBAHIN INI DI HEAD -->
+		<style>
+			/* FIX INPUT POSITION */
+			#root {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+			}
+			
+			.chat {
+				flex: 1;
+				overflow-y: auto;
+			}
+			
+			.send-message {
+				flex-shrink: 0;
+			}
+		</style>
 	</head>
 	<body>		  
-		<div class="container">
-			<div class="row">
-				<div class="one-third column">
+		<div class="container" style="width: 95%; height: 100%">
+			<div class="row" style="height: 100%">
+				<div class="one-third column" style="margin-top: 5%">
 					<h4><b>READT</b>alk</h4>
 					<p></p>
 				</div>
 				<div class="two-thirds column" id="root"></div>
 			</div>
-		</div>  
+		</div>
 	</body>
 </html>
