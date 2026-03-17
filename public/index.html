@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>READTalk</title>
+
+  <link rel="icon" type="image/ico" href="favicon.ico" />
+  <script src="/dist/index.js" type="module" defer></script>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --text-sec: #4b5563;
+      --bubble-recv-bg: #f3f4f6;
+      --bubble-recv-text: #111111;
+      --bubble-sent-bg: #ef4444;
+      --bubble-sent-text: #ffffff;
+      --input-bg: #f9fafb;
+      --border: #e5e7eb;
+      --accent: #ef4444;
+      --accent-dark: #dc2626;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body, #root {
+      height: 100%;
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      overflow: hidden;
+    }
+
+    /* Reset Skeleton grid total */
+    .container, .row, .column, .columns, .one-third, .two-thirds, .ten, .two {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      float: none !important;
+      display: block !important;
+      position: static !important;
+    }
+
+    .chat.container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1rem 7rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      scroll-behavior: smooth;
+    }
+
+    .row.message {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .row.message .user {
+      font-size: 0.81rem;
+      font-weight: 600;
+      color: var(--text-sec);
+      margin-bottom: 0.4rem;
+      padding-left: 0.9rem;
+    }
+
+    .row.message .ten.columns {
+      max-width: 80%;
+      width: fit-content;
+      padding: 0.8rem 1.1rem;
+      border-radius: 1.3rem;
+      font-size: 1rem;
+      line-height: 1.42;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* Default: received (kiri, abu muda) */
+    .row.message .ten.columns {
+      align-self: flex-start;
+      background: var(--bubble-recv-bg);
+      color: var(--bubble-recv-text);
+      border-top-left-radius: 0.4rem;
+      border-bottom-left-radius: 1.3rem;
+      border-top-right-radius: 1.3rem;
+      border-bottom-right-radius: 1.3rem;
+    }
+
+    /* Sent: kanan + merah (ditambahkan via JS) */
+    .row.message.sent .ten.columns {
+      align-self: flex-end;
+      background: var(--bubble-sent-bg);
+      color: var(--bubble-sent-text);
+      border-bottom-right-radius: 0.4rem;
+      border-bottom-left-radius: 1.3rem;
+      border-top-left-radius: 1.3rem;
+      border-top-right-radius: 1.3rem;
+    }
+
+    .row.message .ten.columns::after {
+      content: "baru saja";
+      display: block;
+      font-size: 0.69rem;
+      opacity: 0.7;
+      margin-top: 0.4rem;
+      text-align: right;
+    }
+
+    /* Input fixed */
+    form.row {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.8rem 1rem;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      box-shadow: 0 -3px 12px rgba(0,0,0,0.04);
+      z-index: 10;
+    }
+
+    input.ten.columns.my-input-text {
+      flex: 1;
+      height: 3.2rem;
+      padding: 0 1.3rem;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input.ten.columns.my-input-text:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    button.send-message.two.columns {
+      width: 3.2rem;
+      height: 3.2rem;
+      border: none;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+
+    button:hover { background: var(--accent-dark); }
+
+    /* Scrollbar */
+    .messages-area::-webkit-scrollbar { width: 6px; }
+    .messages-area::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+
+    /* Desktop */
+    @media (min-width: 640px) {
+      .chat.container { max-width: 980px; margin: 0 auto; border-left/right: 1px solid var(--border); }
+      .messages-area { padding: 1.5rem 2.5rem 8rem; }
+      form.row { max-width: 980px; left: 50%; transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Script mini untuk deteksi sent (jalan setelah React render) -->
+  <script>
+    function detectSentMessages() {
+      const input = document.querySelector('input.my-input-text');
+      if (!input) return;
+
+      const placeholder = input.placeholder || '';
+      const myNameMatch = placeholder.match(/Hello (.*?)!/);
+      const myName = myNameMatch ? myNameMatch[1].trim() : null;
+
+      if (!myName) return;
+
+      document.querySelectorAll('.row.message').forEach(msg => {
+        const userElem = msg.querySelector('.user');
+        if (userElem && userElem.textContent.trim() === myName) {
+          msg.classList.add('sent');
+          // Optional: hide nama di sent biar clean
+          userElem.style.display = 'none';
+        }
+      });
+    }
+
+    // Jalankan setelah load + beri waktu React render
+    window.addEventListener('load', () => {
+      setTimeout(detectSentMessages, 800);
+      // Observe perubahan DOM (pesan baru dari websocket)
+      const observer = new MutationObserver(detectSentMessages);
+      observer.observe(document.getElementById('root'), { childList: true, subtree: true });
+    });
+  </script>
+</body>
+</html>
