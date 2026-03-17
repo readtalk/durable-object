@@ -188,3 +188,27 @@ button:active {
   background: #adb5bd;
   border-radius: 10px;
 }
+
+/* Optional: typing indicator (via Jsx) */
+.typing {
+  color: #adb5bd;
+  font-style: italic;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* Optional: dark mode toggle switch Sidebar) */
+.dark-mode .one-third.column {
+  background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+  color: #e0e0e0;
+  border-right-color: #444;
+}
+
+.dark-mode .chat.container {
+  background: #121212;
+}
+
+.dark-mode .row.message:not(.sent) .ten.columns {
+  background: #2d2d2d;
+  color: #e0e0e0;
+}
