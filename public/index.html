@@ -1,101 +1,44 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<meta charset="utf-8" />
-		<title>Chat!</title>
+		<title>READTalk</title>
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+
+		<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<link rel="stylesheet" href="styles.css" />
+		<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
+		<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+				<link rel="stylesheet" href="styles.css" />
+
+		<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<link rel="icon" type="image/ico" href="favicon.ico" />
 		<script src="/dist/index.js" type="module"></script>
-		
-		<style>			
-			#chatroom {
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				display: none; /* Muncul setelah form hilang */
-			}
-			
-			#chatlog {
-				position: fixed;
-				top: 0;
-				bottom: 60px;
-				left: 200px;
-				right: 0;
-				overflow-y: auto;
-				padding: 20px;
-			}
-			
-			#roster {
-				position: fixed;
-				top: 0;
-				bottom: 60px;
-				left: 0;
-				width: 200px;
-				overflow-y: auto;
-				padding: 20px;
-				border-right: 1px solid #ccc;
-			}
-			
-			#chat-input {
-				position: fixed;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				height: 60px;
-				padding: 10px 20px 10px 220px;
-				border-top: 1px solid #ccc;
-				background: white;
-			}
-			
-			#chat-input input {
-				width: 100%;
-				height: 40px;
-				padding: 0 10px;
-				border: 1px solid #ccc;
-				border-radius: 4px;
-			}
-			
-			@media (max-width: 600px) {
-				#roster { display: none; }
-				#chatlog { left: 0; }
-				#chat-input { padding-left: 20px; }
-			}
-		</style>
 	</head>
 	<body>
-		<!-- Primary Page Layout -->
-		<div class="container" style="width:95%; height:100%;">
-			<div class="row" style="height:100%;">
-				<div class="one-third column" style="margin-top:25%;">
-					<h4><b>Chat</b>, powered by Durable Objects</h4>
-					<p>
-						This chat room is hosted in a single Durable Object, running in one
-						process in one machine in one location, very close to the users.
+		<!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<div class="container" style="width: 95%; height: 100%">
+			<div class="row" style="height: 100%">
+				<div class="one-third column" style="margin-top: 25%">
+					<h4><b>READT</b>alk</h4>
+					<p>					  
 					</p>
 				</div>
-				<div class="two-thirds column" id="root" style="height:100%;"></div>
+				<div class="two-thirds column" id="root"></div>
 			</div>
 		</div>
 
-		<!-- Chat Layer (akan diisi JS) -->
-		<div id="chatroom" style="display:none;">
-			<div id="chatlog"></div>
-			<div id="roster"></div>
-			<div id="chat-input">
-				<input type="text" placeholder="Type a message...">
-			</div>
-		</div>
-
-		<script>
-			// Nanti JS akan:
-			// 1. Hapus form name & room
-			// 2. Tampilkan #chatroom
-			// 3. Isi dengan data dari WebSocket
-		</script>
+		<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	</body>
 </html>
