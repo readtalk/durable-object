@@ -59,6 +59,55 @@
 		.my-input-text::placeholder {
 			color: #ccc;
 		}
+		
+@media (min-width: 550px) {
+  .one-third.column {
+    display: block !important;
+  }
+  .two-thirds.column {
+    display: block !important;
+  }
+}
+
+
+@media (max-width: 549px) {
+  .row {
+    flex-direction: column !important;
+  }
+
+  .one-third.column {
+    width: 100% !important;
+    height: 100vh !important;
+    flex: 1 1 100% !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: #fff;
+    text-align: center;
+    z-index: 20;
+    position: relative;
+  }
+
+  
+  .one-third.column h4 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+
+  .one-third.column p {
+    font-size: 1.4rem;
+    color: #555;
+  }
+
+  
+  .two-thirds.column {
+    display: none !important;
+  }
+
+  
+}
 	</style>
 </head>
 <body>
