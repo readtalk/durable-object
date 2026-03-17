@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>READTalk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link rel="icon" type="image/ico" href="favicon.ico" />
+  <script src="/dist/index.js" type="module" defer></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body, #root {
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #ffffff;
+      color: #212529;
+      overflow: hidden;
+    }
+
+    /* Override container React jadi full chat layout */
+    .chat.container {
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      max-width: none !important;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      background: #ffffff;
+    }
+
+    /* Area pesan (scrollable) */
+    .chat.container > .row.message {
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px 80px; /* ruang buat input fixed */
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .row.message {
+      margin: 8px 0;
+      background: transparent;
+    }
+
+    .row.message .user {
+      font-size: 0.75rem;
+      color: #6c757d;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .row.message .ten.columns {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.96rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    /* Bubble received (kiri, abu muda) */
+    .row.message .user ~ .ten.columns,
+    .row.message:not(:has(> .user:contains-self)) .ten.columns {
+      align-self: flex-start;
+      background: #f1f3f5;
+      color: #212529;
+      border-bottom-left-radius: 4px;
+    }
+
+    /* Bubble sent (kanan, merah) */
+    .row.message:has(> .user:contains-self) .ten.columns {
+      align-self: flex-end;
+      background: #e63946;
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    /* Timestamp kecil (opsional, kalau mau tambah manual di CSS atau nanti di JSX) */
+    .row.message .ten.columns::after {
+      content: attr(data-time) / ""; /* kalau nanti tambah data-time di JSX */
+      display: block;
+      font-size: 0.68rem;
+      opacity: 0.7;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    /* Input form - fixed bottom style */
+    .chat.container > form.row {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 16px;
+      background: #ffffff;
+      border-top: 1px solid #dee2e6;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+      z-index: 10;
+    }
+
+    .chat.container form input.ten.columns.my-input-text {
+      flex: 1;
+      height: 48px;
+      padding: 0 20px;
+      border: 1px solid #ced4da;
+      border-radius: 24px;
+      background: #f8f9fa;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .chat.container form input:focus {
+      border-color: #e63946;
+      box-shadow: 0 0 0 3px rgba(230,57,70,0.15);
+    }
+
+    .chat.container form input::placeholder {
+      color: #adb5bd;
+    }
+
+    .chat.container form button.send-message.two.columns {
+      width: 48px !important;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: #dc3545;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .chat.container form button:hover {
+      background: #c82333;
+    }
+
+    /* Hilangkan grid Milligram yang mengganggu */
+    .row, .columns {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
