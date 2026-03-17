@@ -79,6 +79,44 @@
             background-repeat: repeat;
         }
 
+        /* ===== FIX GENTONG ===== */
+.message {
+    max-width: 65%;  /* Kurangi lebar bubble */
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.message.me {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.message .content {
+    padding: 6px 10px;  /* Kecilin padding */
+    font-size: 14px;     /* Normalin font */
+}
+
+/* Fix input */
+.send-message {
+    padding: 10px 15px;  /* Kecilin padding */
+}
+
+.my-input-text {
+    height: 38px;        /* Turunin tinggi */
+    padding: 0 12px;      /* Kecilin padding */
+    font-size: 14px;
+}
+
+.send-message button {
+    height: 38px;
+    width: 70px;         /* PERSEMPIT! */
+    font-size: 13px;
+}
+
+/* Kasih margin ke pinggir */
+.two-thirds.column {
+    padding: 0 5px;      /* Biar gak nempel */
+}
         /* Styling untuk chat messages (dari JS) */
         .chat {
             flex: 1;
