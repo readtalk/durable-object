@@ -17,48 +17,104 @@
       --bubble-recv-text: #111111;
       --bubble-sent-bg: #ef4444;
       --bubble-sent-text: #ffffff;
-      --input-bg: #f9fafb;
-      --border: #e5e7eb;
       --accent: #ef4444;
       --accent-dark: #dc2626;
-      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --border: #e5e7eb;
+      --input-bg: #f9fafb;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body, #root {
       height: 100%;
-      width: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
+      margin: 0;
+      padding: 0;
       overflow: hidden;
+      background: var(--bg);
+      font-family: system-ui, -apple-system, sans-serif;
     }
 
-    /* Reset grid Skeleton/Milligram sepenuhnya */
-    .container, .row, .column, .columns, .one-third, .two-thirds, .ten, .two,
-    [class*="column"], [class*="columns"] {
+    /* Reset ringan – jangan bunuh .row sepenuhnya */
+    .container {
+      max-width: 100% !important;
       margin: 0 !important;
       padding: 0 !important;
-      width: auto !important;
-      float: none !important;
-      display: block !important;
+      width: 100% !important;
     }
 
+    /* Biarkan .row tetap flex (penting untuk form input) */
+    form.row {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      padding: 12px 16px !important;
+      background: white !important;
+      border-top: 1px solid var(--border) !important;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.04) !important;
+      z-index: 999 !important;
+      width: 100% !important;
+    }
+
+    /* Input: override agar melebar penuh */
+    input.ten.columns.my-input-text {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      width: 100% !important;
+      height: 48px !important;
+      padding: 0 18px !important;
+      border: 1px solid #d1d5db !important;
+      border-radius: 9999px !important;
+      background: var(--input-bg) !important;
+      font-size: 16px !important;
+      outline: none !important;
+    }
+
+    input:focus {
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.15) !important;
+    }
+
+    input::placeholder {
+      color: #9ca3af !important;
+    }
+
+    /* Button: override jadi bulat & fixed size */
+    button.send-message.two.columns {
+      flex: 0 0 auto !important;
+      width: 48px !important;
+      height: 48px !important;
+      min-width: 48px !important;
+      border-radius: 50% !important;
+      background: var(--accent) !important;
+      color: white !important;
+      border: none !important;
+      font-size: 20px !important;
+      font-weight: bold !important;
+      cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    button:active { transform: scale(0.96); }
+    button:hover { background: var(--accent-dark) !important; }
+
+    /* Area pesan (scrollable) */
     .chat.container {
+      height: 100%;
       display: flex;
       flex-direction: column;
-      height: 100%;
     }
 
-    .messages-area {
+    .chat.container > *:not(form) {
       flex: 1;
       overflow-y: auto;
-      padding: 1.4rem 1.1rem 8rem; /* lebih lega bottom */
+      padding: 16px 12px 80px;
       display: flex;
       flex-direction: column;
-      gap: 1.4rem; /* jarak antar pesan lebih nyaman */
-      scroll-behavior: smooth;
+      gap: 14px;
     }
 
     .row.message {
@@ -68,121 +124,52 @@
     }
 
     .row.message .user {
-      font-size: 0.81rem;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-sec);
-      margin-bottom: 0.45rem;
-      padding-left: 1rem;
-    }
-
-    /* Hide nama di bubble sent */
-    .row.message.sent .user {
-      display: none !important;
+      margin-bottom: 4px;
+      padding-left: 12px;
     }
 
     .row.message .ten.columns {
-      max-width: 80%;
-      width: fit-content;
-      padding: 0.85rem 1.15rem;
-      border-radius: 1.4rem;
-      font-size: 1rem;
-      line-height: 1.45;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 15px;
+      line-height: 1.4;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
 
-    /* Received: kiri */
     .row.message:not(.sent) .ten.columns {
       align-self: flex-start;
       background: var(--bubble-recv-bg);
       color: var(--bubble-recv-text);
-      border-top-left-radius: 0.45rem;
-      border-bottom-left-radius: 1.4rem;
-      border-top-right-radius: 1.4rem;
-      border-bottom-right-radius: 1.4rem;
+      border-bottom-left-radius: 4px;
     }
 
-    /* Sent: kanan + merah */
     .row.message.sent .ten.columns {
       align-self: flex-end;
       background: var(--bubble-sent-bg);
       color: var(--bubble-sent-text);
-      border-bottom-right-radius: 0.45rem;
-      border-bottom-left-radius: 1.4rem;
-      border-top-left-radius: 1.4rem;
-      border-top-right-radius: 1.4rem;
+      border-bottom-right-radius: 4px;
+    }
+
+    .row.message.sent .user {
+      display: none;
     }
 
     .row.message .ten.columns::after {
       content: "baru saja";
       display: block;
-      font-size: 0.68rem;
+      font-size: 11px;
       opacity: 0.6;
-      margin-top: 0.45rem;
+      margin-top: 4px;
       text-align: right;
     }
 
-    form.row {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 0.9rem 1.1rem;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
-      z-index: 10;
-    }
-
-    input.ten.columns.my-input-text {
-      flex: 1;
-      height: 3.3rem;
-      padding: 0 1.4rem;
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 9999px;
-      font-size: 1rem;
-      outline: none;
-      transition: 0.2s;
-    }
-
-    input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(239,68,68,0.12);
-    }
-
-    input::placeholder {
-      color: #9ca3af;
-    }
-
-    button.send-message.two.columns {
-      width: 3.3rem;
-      height: 3.3rem;
-      border: none;
-      border-radius: 50%;
-      background: var(--accent);
-      color: white;
-      font-size: 1.35rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    button:active { transform: scale(0.95); }
-    button:hover { background: var(--accent-dark); }
-
-    .messages-area::-webkit-scrollbar { width: 5px; }
-    .messages-area::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 5px; }
-
-    @media (min-width: 640px) {
-      .chat.container { max-width: 980px; margin: 0 auto; border-left/right: 1px solid var(--border); }
-      .messages-area { padding: 1.8rem 2.8rem 9rem; }
-      form.row { max-width: 980px; left: 50%; transform: translateX(-50%); }
-    }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -190,7 +177,7 @@
 
   <!-- Script deteksi sent + hide nama -->
   <script>
-    function updateSentMessages() {
+    function updateChatUI() {
       const input = document.querySelector('input.my-input-text');
       if (!input) return;
 
@@ -206,18 +193,19 @@
           const userName = userElem.textContent.trim();
           if (userName === myName) {
             msg.classList.add('sent');
-            userElem.style.display = 'none'; // hide nama di sent
+            userElem.style.display = 'none';
           }
         }
       });
     }
 
-    // Run on load + observe DOM changes (pesan baru masuk via websocket)
     window.addEventListener('load', () => {
-      setTimeout(updateSentMessages, 600);
-      const observer = new MutationObserver(updateSentMessages);
-      observer.observe(document.getElementById('root'), { childList: true, subtree: true });
+      setTimeout(updateChatUI, 600);
     });
+
+    // Re-run saat pesan baru masuk (websocket update DOM)
+    const observer = new MutationObserver(updateChatUI);
+    observer.observe(document.getElementById('root'), { childList: true, subtree: true });
   </script>
 </body>
 </html>
