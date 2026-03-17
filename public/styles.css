@@ -9,7 +9,25 @@
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
 }
 
-/* Logo & teks di sidebar */
+.one-third.column h4,
+.one-third.column h4 b {
+  color: #e63946 !important;           /* merah utama */
+  font-weight: 900 !important;
+  letter-spacing: -1.2px;
+  text-shadow: 0 1px 3px rgba(230,57,70,0.15);
+}
+
+/* Gradient halus di background sidebar */
+.one-third.column {
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+  box-shadow: inset -2px 0 10px rgba(0,0,0,0.02);
+  transition: background 0.4s ease;
+}
+
+.one-third.column:hover {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%);
+}
+
 .one-third.column h4 {
   font-weight: 800;
   color: #e63946; /* merah utama */
