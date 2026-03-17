@@ -1,61 +1,50 @@
-body,
-html {
-	height: 100%;
+/* ===== RESET DASAR (ganti normalize) ===== */
+* {
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ===== LAYOUT UTAMA (ganti skeleton) ===== */
+.container {
+	width: 95%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.row {
 	display: flex;
-	flex-direction: column;
+	height: 100%;
 }
 
-[data-theme="light"] {
-	background-color: black !important;
-	color: white !important;
+.one-third.column {
+	width: 30%;
+	margin-top: 25%;
+	padding: 20px;
 }
 
-[data-theme="light"] * {
-	color: white !important;
-	border-color: white !important;
-	background-color: transparent !important;
-	fill: white !important;
-	stroke: white !important;
+.two-thirds.column {
+	width: 70%;
+	height: 100%;
 }
 
-[data-theme="light"] .container,
-[data-theme="light"] .row,
-[data-theme="light"] .column,
-[data-theme="light"] #root {
-	background-color: black !important;
-}
-
-[data-theme="light"] input,
-[data-theme="light"] textarea,
-[data-theme="light"] .my-input-text {
-	background-color: black !important;
-	border: 1px solid white !important;
-	color: white !important;
-}
-
-[data-theme="light"] .my-input-text::placeholder {
-	color: rgba(255, 255, 255, 0.7) !important;
-}
-
-[data-theme="light"] #themeToggle {
-	color: white !important;
-	border-color: white !important;
-	background-color: black !important;
-}
-
-.chat {
-	padding-top: 40px;
-}
-
+/* ===== CHAT AREA (dari styles.css ori) ===== */
 #root {
-	flex: 1;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	overflow-y: auto;
-	height: 100%;
+}
+
+.chat {
+	padding-top: 40px;
 }
 
 .message {
@@ -67,16 +56,6 @@ html {
 	text-align: right;
 }
 
-.message .remove {
-	position: absolute;
-	width: 22px;
-	height: 20px;
-	left: -60px;
-	display: none;
-	padding: 0;
-	line-height: 18px;
-}
-
 .send-message {
 	padding: 0;
 }
@@ -85,15 +64,46 @@ html {
 	color: #ccc;
 }
 
-[data-theme="dark"] {
-	background-color: initial !important;
-	color: initial !important;
+/* ===== MOBILE NAVIGATION ===== */
+@media (max-width: 549px) {
+	.row {
+		flex-direction: column;
+	}
+	
+	.one-third.column {
+		width: 100%;
+		margin-top: 10%;
+		display: block;
+	}
+	
+	.two-thirds.column {
+		width: 100%;
+		display: none;
+	}
+	
+	body.show-chat .two-thirds.column {
+		display: block;
+	}
+	
+	body.show-chat .one-third.column {
+		display: none;
+	}
 }
 
-[data-theme="dark"] * {
-	color: initial !important;
-	border-color: initial !important;
-	background-color: initial !important;
-	fill: initial !important;
-	stroke: initial !important;
+/* ===== DAYNIGHT THEME ===== */
+[data-theme="dark"] {
+	background-color: #0b141a;
+	color: #e9edef;
+}
+
+[data-theme="dark"] .one-third.column,
+[data-theme="dark"] .two-thirds.column {
+	background-color: #0b141a;
+	color: #e9edef;
+}
+
+[data-theme="dark"] .my-input-text {
+	background-color: #202c33;
+	border-color: #2a3942;
+	color: #e9edef;
 }
