@@ -2,13 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>READTalk</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <link rel="icon" type="image/ico" href="favicon.ico" />
   <script src="/dist/index.js" type="module" defer></script>
   
   <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0f1419;
+      --text-secondary: #536471;
+      --bubble-sent: #e63946;
+      --bubble-sent-text: #ffffff;
+      --bubble-received: #f1f5f9;
+      --bubble-received-text: #0f1419;
+      --input-bg: #f8fafc;
+      --border: #e2e8f0;
+      --accent: #e63946;
+      --accent-hover: #d00000;
+      --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -17,143 +32,211 @@
 
     html, body, #root {
       height: 100%;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #ffffff;
-      color: #212529;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-base);
       overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Override container React jadi full chat layout */
     .chat.container {
       height: 100dvh;
       display: flex;
       flex-direction: column;
-      max-width: none !important;
+      background: var(--bg);
+      max-width: 100%;
       width: 100%;
-      padding: 0;
-      margin: 0;
-      background: #ffffff;
+      margin: 0 auto;
     }
 
-    /* Area pesan (scrollable) */
-    .chat.container > .row.message {
+    /* Header sederhana (nama room atau judul, bisa dihapus kalau gak perlu) */
+    .chat-header {
+      padding: 12px 16px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* Area pesan - scrollable */
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 12px 80px; /* ruang buat input fixed */
       display: flex;
       flex-direction: column;
-      padding: 0 16px 80px; /* ruang buat input fixed */
-      overflow-y: auto;
-      flex: 1;
+      gap: 12px;
+      scroll-behavior: smooth;
     }
 
     .row.message {
-      margin: 8px 0;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
       background: transparent;
     }
 
     .row.message .user {
-      font-size: 0.75rem;
-      color: #6c757d;
-      margin-bottom: 4px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
       font-weight: 500;
+      margin-bottom: 4px;
+      padding-left: 12px;
     }
 
     .row.message .ten.columns {
-      max-width: 78%;
+      max-width: 75%;
       padding: 10px 14px;
-      border-radius: 16px;
-      font-size: 0.96rem;
-      line-height: 1.4;
+      border-radius: 18px;
+      font-size: clamp(14px, 3.5vw, 16px); /* responsif: kecil di mobile, agak besar di desktop */
+      line-height: 1.38;
       word-break: break-word;
+      position: relative;
     }
 
-    /* Bubble received (kiri, abu muda) */
-    .row.message .user ~ .ten.columns,
-    .row.message:not(:has(> .user:contains-self)) .ten.columns {
+    /* Received: kiri, abu muda */
+    .row.message .user ~ .ten.columns {
       align-self: flex-start;
-      background: #f1f3f5;
-      color: #212529;
+      background: var(--bubble-received);
+      color: var(--bubble-received-text);
       border-bottom-left-radius: 4px;
     }
 
-    /* Bubble sent (kanan, merah) */
-    .row.message:has(> .user:contains-self) .ten.columns {
+    /* Sent: kanan, merah */
+    .row.message:has(> .user) .ten.columns {  /* fallback kalau nama selalu ada */
       align-self: flex-end;
-      background: #e63946;
-      color: white;
+      background: var(--bubble-sent);
+      color: var(--bubble-sent-text);
       border-bottom-right-radius: 4px;
     }
 
-    /* Timestamp kecil (opsional, kalau mau tambah manual di CSS atau nanti di JSX) */
+    /* Timestamp kecil di kanan bawah bubble */
     .row.message .ten.columns::after {
-      content: attr(data-time) / ""; /* kalau nanti tambah data-time di JSX */
+      content: attr(data-time) / "";  /* kalau nanti tambah data-time di JSX, atau pakai CSS content statis */
       display: block;
       font-size: 0.68rem;
-      opacity: 0.7;
+      color: inherit;
+      opacity: 0.65;
       margin-top: 4px;
       text-align: right;
     }
 
-    /* Input form - fixed bottom style */
+    /* Input form fixed bottom */
     .chat.container > form.row {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       padding: 12px 16px;
-      background: #ffffff;
-      border-top: 1px solid #dee2e6;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-      z-index: 10;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.04);
+      z-index: 100;
+      flex-shrink: 0;
     }
 
     .chat.container form input.ten.columns.my-input-text {
       flex: 1;
       height: 48px;
-      padding: 0 20px;
-      border: 1px solid #ced4da;
+      padding: 0 18px;
+      border: 1px solid var(--border);
       border-radius: 24px;
-      background: #f8f9fa;
-      font-size: 1rem;
+      background: var(--input-bg);
+      font-size: clamp(15px, 3.8vw, 16px);
+      color: var(--text);
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.2s ease;
     }
 
     .chat.container form input:focus {
-      border-color: #e63946;
-      box-shadow: 0 0 0 3px rgba(230,57,70,0.15);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
     }
 
     .chat.container form input::placeholder {
-      color: #adb5bd;
+      color: #94a3b8;
+      font-weight: 400;
     }
 
     .chat.container form button.send-message.two.columns {
-      width: 48px !important;
+      width: 48px;
       height: 48px;
+      min-width: 48px;
       border: none;
       border-radius: 50%;
-      background: #dc3545;
+      background: var(--accent);
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
+      font-weight: bold;
       cursor: pointer;
-      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
+      transition: background 0.2s ease;
     }
 
     .chat.container form button:hover {
-      background: #c82333;
+      background: var(--accent-hover);
     }
 
-    /* Hilangkan grid Milligram yang mengganggu */
-    .row, .columns {
+    /* Hilangkan sisa grid Milligram yang mengganggu */
+    .row, .columns, .ten.columns, .two.columns {
       margin: 0 !important;
       padding: 0 !important;
       width: auto !important;
+      float: none !important;
+    }
+
+    /* Scrollbar custom (opsional, clean) */
+    .messages-area::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .messages-area::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+
+    .messages-area::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Responsif tambahan untuk layar besar */
+    @media (min-width: 768px) {
+      .chat.container {
+        max-width: 900px;
+        margin: 0 auto;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .messages-area {
+        padding: 24px 32px 100px;
+      }
+      .chat.container > form.row {
+        padding: 16px 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .chat.container > form.row {
+        padding: 10px 12px;
+      }
+      form input {
+        height: 44px;
+      }
+      form button {
+        width: 44px;
+        height: 44px;
+      }
     }
   </style>
 </head>
