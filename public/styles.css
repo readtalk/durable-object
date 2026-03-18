@@ -1,4 +1,4 @@
-/* Phase 0 – Brand & Typography Foundation */
+/* Phase 0 */
 
 :root {
   --merah-utama:    #e63946;
@@ -21,7 +21,6 @@
   box-sizing: border-box;
 }
 
-/* Logo READTalk – konsisten merah di semua device */
 .one-third.column h4,
 .one-third.column h4 b,
 .chat-header h4 {  /* kalau React render header */
@@ -31,7 +30,7 @@
   text-shadow: 0 1px 2px rgba(230,57,70,0.12);
 }
 
-/* Phase 1 – Sidebar Visual */
+/* Phase 1 */
 .one-third.column {
   background: linear-gradient(135deg, var(--putih), #fff5f5);
   box-shadow: inset -2px 0 12px rgba(0,0,0,0.02);
@@ -42,7 +41,6 @@
   background: linear-gradient(135deg, #fff5f5, #ffebee);
 }
 
-/* Optional: garis aksen atas sidebar */
 .one-third.column::before {
   content: "";
   position: absolute;
@@ -51,7 +49,7 @@
   background: linear-gradient(to right, var(--merah-utama), var(--merah-muda));
 }
 
-/* Phase 2 – Bubble & Message */
+/* Phase 2 */
 .row.message .ten.columns {
   border-radius: var(--radius-bubble);
   box-shadow: var(--shadow-halus);
@@ -66,21 +64,18 @@
   transform: translateY(-1px);
 }
 
-/* Received – kiri */
 .row.message:not(.sent) .ten.columns {
   background: var(--abu-muda);
   color: #0f1419;
   border-bottom-left-radius: 5px;
 }
 
-/* Sent – kanan + merah */
 .row.message.sent .ten.columns {
   background: var(--merah-utama);
   color: white;
   border-bottom-right-radius: 5px;
 }
 
-/* Nama pengirim */
 .row.message .user {
   font-size: 13px;
   font-weight: 600;
@@ -93,7 +88,7 @@
   display: none;
 }
 
-/* Phase 3 – Input & Send */
+/* Phase 3 */
 input.ten.columns.my-input-text {
   background: #f9fafb;
   border: 1px solid var(--border-halus);
@@ -138,12 +133,11 @@ button:active {
   box-shadow: 0 1px 4px rgba(230,57,70,0.2);
 }
 
-/* Phase 4 – Extra polish */
+/* Phase 4 */
 .chat.container {
   background: var(--putih);
 }
 
-/* Scrollbar modern */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -155,7 +149,6 @@ button:active {
   background: #94a3b8;
 }
 
-/* Optional: efek muncul pesan baru */
 .row.message {
   opacity: 0;
   transform: translateY(10px);
