@@ -177,6 +177,12 @@
 }
 
 /* ===== Phase 3 — Input & Tombol ===== */
+button.send-message.two.columns:hover {
+  background: var(--merah-gelap);
+  box-shadow: 0 0 0 4px rgba(230,57,70,0.2), 0 8px 20px rgba(230,57,70,0.3);
+  transform: scale(1.05) rotate(-1deg);
+}
+  
 input.ten.columns.my-input-text {
   background: #f9fafb;
   border: 1px solid var(--border-halus);
