@@ -26,6 +26,6 @@ export type Message =
 	  };
 
 export const names = [
-	"@read",
-	"@talk",
+	"@user01",
+	"@user02",
 ];
