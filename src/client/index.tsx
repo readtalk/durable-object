@@ -86,7 +86,7 @@ function App() {
 						"content",
 					) as HTMLInputElement;
 					const chatMessage: ChatMessage = {
-						id: nanoid(14),
+						id: nanoid(8),
 						content: content.value,
 						user: name,
 						role: "user",
