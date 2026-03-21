@@ -26,6 +26,5 @@ export type Message =
 	  };
 
 export const names = [
-	"Adam",
-	"Eve",
+	"You",	
 ];
